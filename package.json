@@ -1,0 +1,28 @@
+{
+  "name": "edgeflow",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "i": "pnpm install",
+    "build": "pnpm -r run build",
+    "dev:core": "node packages/core/dist/run.js",
+    "dev:app": "pnpm run --filter example-kiosk dev",
+    "dev:devtools": "pnpm run --filter devtools dev",
+    "dev": "pnpm exec concurrently \"pnpm dev:core\" \"pnpm dev:app\" --names core,app",
+    "dev:all": "pnpm exec concurrently \"pnpm dev:core\" \"pnpm dev:app\" \"pnpm dev:devtools\" --names core,app,devtools",
+    "cli": "node packages/cli/dist/index.js",
+    "kill-ports": "node scripts/kill-ports.mjs",
+    "lint": "pnpm exec eslint .",
+    "typecheck": "pnpm -r run typecheck",
+    "postinstall": "node scripts/postinstall.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "concurrently": "^9.1.0",
+    "eslint": "^9.15.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@edgeflow/sync",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
+  "scripts": { "build": "tsup", "typecheck": "tsc --noEmit", "dev": "tsup --watch" },
+  "dependencies": { "better-sqlite3": "^11.6.0" },
+  "devDependencies": { "@types/better-sqlite3": "^7.6.11", "tsup": "^8.3.0", "typescript": "^5.7.0" }
+}

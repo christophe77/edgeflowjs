@@ -135,6 +135,36 @@ Define:
 - `@edgeflow/flow` public API
 - `@edgeflow/ui-devtools` minimal viewer
 
+### 4.4 Flow Example (Idle → Scan → Action → ThankYou)
+
+```ts
+const purchaseFlow = defineFlow<{ scannedCode?: string }>({
+  id: "purchase",
+  initial: "idle",
+  states: {
+    idle: { on: { SCAN: "scan" } },
+    scan: {
+      on: { SCANNED: "action" },
+      timeoutMs: 30000,
+      onTimeout: "TIMEOUT",
+    },
+    action: { on: { DONE: "thankYou" } },
+    thankYou: {
+      on: { RESET: "idle" },
+      timeoutMs: 5000,
+      onTimeout: "RESET",
+    },
+  },
+});
+
+flow.register(purchaseFlow);
+const snap = await flow.start("purchase", { instanceId: "main", ctx: {} });
+await flow.dispatch("main", { type: "SCAN" });
+await flow.dispatch("main", { type: "SCANNED", payload: { code: "QR123" } });
+```
+
+**Conventions:** event types in UPPER_SNAKE (`SCAN`, `TIMEOUT`, `RESET`); context `TCtx` holds flow-specific data.
+
 ---
 
 ## 5. Device Layer Deep Dive (Ports & Adapters)

@@ -56,7 +56,7 @@ There is no coherent JS-native framework that treats kiosk/edge devices as first
 
 - **Hardware abstraction**
   - Unified device APIs
-  - Swappable
+  - Swappable adapters
 
 ---
 
@@ -115,36 +115,35 @@ EdgeFlow includes a built-in deterministic state machine system.
 **Example:**
 
 ```js
-flow.define("purchase", {
+import { defineFlow, createFlowEngine, createMemoryFlowStore } from "@edgeflow/flow";
+
+const flow = createFlowEngine(createMemoryFlowStore());
+flow.register(defineFlow({
+  id: "purchase",
   initial: "idle",
   states: {
-    idle: {
-      on: { START: "scan" }
-    },
+    idle: { on: { START: "scan" } },
     scan: {
-      timeout: 30000,
-      on: {
-        QR_DETECTED: "payment",
-        CANCEL: "idle"
-      }
+      timeoutMs: 30000,
+      onTimeout: "TIMEOUT",
+      on: { QR_DETECTED: "payment", CANCEL: "idle", TIMEOUT: "idle" }
     },
     payment: {
-      on: {
-        SUCCESS: "dispense",
-        FAILURE: "error"
-      }
+      on: { SUCCESS: "dispense", FAILURE: "error" }
     },
     dispense: {
-      on: {
-        COMPLETE: "thankYou"
-      }
+      on: { COMPLETE: "thankYou" }
     },
     thankYou: {
-      timeout: 5000,
+      timeoutMs: 5000,
+      onTimeout: "TIMEOUT",
       on: { TIMEOUT: "idle" }
     }
   }
-})
+}));
+
+await flow.start("purchase", { instanceId: "main", ctx: {} });
+await flow.dispatch("main", { type: "START" });
 ```
 
 **Features:**
@@ -245,7 +244,7 @@ EdgeFlow provides a secure maintenance access layer.
 - Network diagnostics
 - Sync queue viewer
 - Log viewer
-- Manual actions (ex: trigger relay, simulate dispense)
+- Manual actions (e.g. trigger relay, simulate dispense)
 - System reboot
 - Update status
 
@@ -413,11 +412,16 @@ simulate.serial.inject("QR:123456")
 - Logging system
 - Device health check
 
-**Phase 3:**
+**Phase 3:** ✓ Complete
 
 - Flow visualizer
 - Crash recovery
 - Production build mode
+
+**Phase 4:**
+
+- i18n layer
+- Multi-locale support
 
 ---
 
@@ -435,9 +439,7 @@ simulate.serial.inject("QR:123456")
 
 **Monetization model:**
 
-- **Option A:** Open source core + Paid Pro modules (OTA, Observability, Maintenance)
-- **Option B:** Hosted EdgeFlow Cloud, per-device subscription
-- **Option C:** Enterprise license for SDK
+- Open source core + Paid Pro modules (OTA, Observability, Maintenance)
 
 ---
 
@@ -445,7 +447,7 @@ simulate.serial.inject("QR:123456")
 
 EdgeFlow becomes:
 
-- **The “Next.js of physical machines”** — a standard way to build intelligent edge systems using JavaScript with industrial reliability.
+- **The "Next.js of physical machines"** — a standard way to build intelligent edge systems using JavaScript with industrial reliability.
 
 **If you want, next step we can:**
 

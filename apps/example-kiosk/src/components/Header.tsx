@@ -1,0 +1,25 @@
+import { useState, useEffect } from "react";
+import { useI18n } from "@edgeflow/i18n/react";
+
+export default function Header() {
+  const i18n = useI18n();
+  const [now, setNow] = useState(new Date());
+
+  useEffect(() => {
+    const t = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  const dateStr = i18n.formatDate(now, { weekday: "short", day: "numeric", month: "short" });
+  const timeStr = i18n.formatDate(now, { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+
+  return (
+    <header className="header">
+      <img src="/logo_bg_transparent_text_white.png" alt="EdgeFlow" className="header__logo" />
+      <div className="header__datetime">
+        <span className="header__date">{dateStr}</span>
+        <span className="header__time">{timeStr}</span>
+      </div>
+    </header>
+  );
+}
