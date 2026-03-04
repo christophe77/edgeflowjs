@@ -1,6 +1,7 @@
 {
   "name": "@edgeflowjs/cli",
   "version": "0.1.0",
+  "publishConfig": { "access": "public" },
   "type": "module",
   "bin": {
     "edgeflow": "./dist/index.js"
