@@ -1,5 +1,5 @@
 {
-  "name": "@edgeflow/sync",
+  "name": "@edgeflowjs/sync",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",

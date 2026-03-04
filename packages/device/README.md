@@ -1,11 +1,11 @@
-# @edgeflow/device
+# @edgeflowjs/device
 
 Hardware abstraction layer: GPIO, Serial, Network, System, Identity ports.
 
 ## Install
 
 ```bash
-pnpm add @edgeflow/device
+pnpm add @edgeflowjs/device
 ```
 
 ## Exports
@@ -18,11 +18,11 @@ Types only (interfaces). Implementations come from adapters:
 
 ## Usage
 
-Consume the API; provide an adapter (e.g. `@edgeflow/device-sim`):
+Consume the API; provide an adapter (e.g. `@edgeflowjs/device-sim`):
 
 ```ts
-import type { DeviceAdapter } from "@edgeflow/device";
-import { createSimDevice } from "@edgeflow/device-sim";
+import type { DeviceAdapter } from "@edgeflowjs/device";
+import { createSimDevice } from "@edgeflowjs/device-sim";
 
 const device: DeviceAdapter = createSimDevice();
 await device.gpio.read(17);

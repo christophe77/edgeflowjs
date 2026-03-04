@@ -1,11 +1,11 @@
-# @edgeflow/observability
+# @edgeflowjs/observability
 
 Logger and redaction utilities.
 
 ## Install
 
 ```bash
-pnpm add @edgeflow/observability
+pnpm add @edgeflowjs/observability
 ```
 
 ## Exports
@@ -17,7 +17,7 @@ pnpm add @edgeflow/observability
 ## Usage
 
 ```ts
-import { createLogger } from "@edgeflow/observability";
+import { createLogger } from "@edgeflowjs/observability";
 
 const logger = createLogger({ level: "info" });
 logger.info("Flow started", { instanceId: "main" });

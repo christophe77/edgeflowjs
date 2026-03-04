@@ -5,9 +5,8 @@ export type FlowStore = {
   save(snapshot: FlowInstanceSnapshot<unknown>): Promise<void>;
 };
 
-const memory = new Map<string, FlowInstanceSnapshot<unknown>>();
-
 export function createMemoryFlowStore(): FlowStore {
+  const memory = new Map<string, FlowInstanceSnapshot<unknown>>();
   return {
     async load(instanceId) {
       return memory.get(instanceId) ?? null;

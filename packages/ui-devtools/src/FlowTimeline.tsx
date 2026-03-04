@@ -1,4 +1,4 @@
-import type { FlowInstanceSnapshot } from "@edgeflow/flow";
+import type { FlowInstanceSnapshot } from "@edgeflowjs/flow";
 
 export type TransitionEntry = {
   instanceId: string;

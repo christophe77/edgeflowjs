@@ -1,11 +1,11 @@
-# @edgeflow/sync
+# @edgeflowjs/sync
 
 Offline-first outbox queue with SQLite persistence and retry.
 
 ## Install
 
 ```bash
-pnpm add @edgeflow/sync
+pnpm add @edgeflowjs/sync
 ```
 
 ## Exports
@@ -19,7 +19,7 @@ pnpm add @edgeflow/sync
 ## Usage
 
 ```ts
-import { createSqliteStore, createSyncEngine } from "@edgeflow/sync";
+import { createSqliteStore, createSyncEngine } from "@edgeflowjs/sync";
 
 const store = createSqliteStore("./data/edgeflow.sqlite");
 const sync = createSyncEngine(store, { sinkUrl: "https://api.example.com/events" });

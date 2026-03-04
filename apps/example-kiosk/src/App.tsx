@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { FlowInstanceSnapshot } from "@edgeflow/flow";
+import type { FlowInstanceSnapshot } from "@edgeflowjs/flow";
 import Header from "./components/Header";
 import WeatherWidget from "./components/WeatherWidget";
 import StatusBar from "./components/StatusBar";

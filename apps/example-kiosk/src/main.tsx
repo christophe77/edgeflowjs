@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { createI18n } from "@edgeflow/i18n";
-import { I18nProvider } from "@edgeflow/i18n/react";
+import { createI18n } from "@edgeflowjs/i18n";
+import { I18nProvider } from "@edgeflowjs/i18n/react";
 import App from "./App";
 import { ErrorBoundary } from "./ErrorBoundary";
 import en from "./locales/en.json";

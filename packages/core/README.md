@@ -1,11 +1,11 @@
-# @edgeflow/core
+# @edgeflowjs/core
 
 Composition root: bootstrap, config, and runnable server. Composes bridge, flow, device, sync, maintenance, OTA.
 
 ## Install
 
 ```bash
-pnpm add @edgeflow/core
+pnpm add @edgeflowjs/core
 ```
 
 ## Exports

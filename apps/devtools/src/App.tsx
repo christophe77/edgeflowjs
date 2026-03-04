@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-import { createBridgeClient, type BridgeEvent } from "@edgeflow/bridge/client";
-import { useT } from "@edgeflow/i18n/react";
-import type { FlowInstanceSnapshot } from "@edgeflow/flow";
-import type { OutboxEvent, CrashEntry } from "@edgeflow/ui-devtools";
-import { FlowTimeline, OutboxInspector, CrashReports } from "@edgeflow/ui-devtools";
+import { createBridgeClient, type BridgeEvent } from "@edgeflowjs/bridge/client";
+import { useT } from "@edgeflowjs/i18n/react";
+import type { FlowInstanceSnapshot } from "@edgeflowjs/flow";
+import type { OutboxEvent, CrashEntry } from "@edgeflowjs/ui-devtools";
+import { FlowTimeline, OutboxInspector, CrashReports } from "@edgeflowjs/ui-devtools";
 
 const url = import.meta.env.VITE_BRIDGE_URL ?? "ws://localhost:19707";
 const bridge = createBridgeClient({ url });

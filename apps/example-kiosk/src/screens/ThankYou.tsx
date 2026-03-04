@@ -1,4 +1,4 @@
-import { useT } from "@edgeflow/i18n/react";
+import { useT } from "@edgeflowjs/i18n/react";
 
 export default function ThankYou() {
   const t = useT();

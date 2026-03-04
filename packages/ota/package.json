@@ -1,10 +1,11 @@
 {
-  "name": "@edgeflow/ota",
+  "name": "@edgeflowjs/ota",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
   "scripts": { "build": "tsup", "typecheck": "tsc --noEmit", "dev": "tsup --watch" },
+  "dependencies": { "tar": "^7.4.0" },
   "devDependencies": { "tsup": "^8.3.0", "typescript": "^5.7.0" }
 }

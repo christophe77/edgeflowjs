@@ -14,7 +14,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           react: ["react", "react-dom"],
-          bridge: ["@edgeflow/bridge/client"],
+          bridge: ["@edgeflowjs/bridge/client"],
         },
       },
     },

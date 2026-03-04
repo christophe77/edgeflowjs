@@ -1,4 +1,4 @@
-import { useI18n } from "@edgeflow/i18n/react";
+import { useI18n } from "@edgeflowjs/i18n/react";
 import { useWeather } from "../hooks/useWeather";
 
 export default function WeatherWidget() {

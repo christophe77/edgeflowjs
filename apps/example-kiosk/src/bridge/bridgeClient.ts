@@ -1,5 +1,5 @@
-import { createBridgeClient, type BridgeEvent } from "@edgeflow/bridge/client";
-import type { FlowInstanceSnapshot } from "@edgeflow/flow";
+import { createBridgeClient, type BridgeEvent } from "@edgeflowjs/bridge/client";
+import type { FlowInstanceSnapshot } from "@edgeflowjs/flow";
 
 const url = import.meta.env.VITE_BRIDGE_URL ?? "ws://localhost:19707";
 export const bridgeClient = createBridgeClient({ url });

@@ -1,5 +1,5 @@
 {
-  "name": "@edgeflow/i18n",
+  "name": "@edgeflowjs/i18n",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",

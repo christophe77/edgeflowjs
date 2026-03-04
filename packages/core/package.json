@@ -1,5 +1,5 @@
 {
-  "name": "@edgeflow/core",
+  "name": "@edgeflowjs/core",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -17,14 +17,15 @@
     "start": "node dist/run.js"
   },
   "dependencies": {
-    "@edgeflow/bridge": "workspace:*",
-    "@edgeflow/device": "workspace:*",
-    "@edgeflow/device-sim": "workspace:*",
-    "@edgeflow/flow": "workspace:*",
-    "@edgeflow/maintenance": "workspace:*",
-    "@edgeflow/observability": "workspace:*",
-    "@edgeflow/ota": "workspace:*",
-    "@edgeflow/sync": "workspace:*",
+    "@edgeflowjs/bridge": "workspace:*",
+    "@edgeflowjs/device": "workspace:*",
+    "@edgeflowjs/device-rpi": "workspace:*",
+    "@edgeflowjs/device-sim": "workspace:*",
+    "@edgeflowjs/flow": "workspace:*",
+    "@edgeflowjs/maintenance": "workspace:*",
+    "@edgeflowjs/observability": "workspace:*",
+    "@edgeflowjs/ota": "workspace:*",
+    "@edgeflowjs/sync": "workspace:*",
     "better-sqlite3": "^11.6.0",
     "dotenv": "^17.3.1",
     "ws": "^8.18.0"

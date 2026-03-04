@@ -39,10 +39,14 @@ pnpm build
 ## Running Tests
 
 ```bash
-pnpm typecheck   # Type-check all packages
+pnpm test       # Run tests in watch mode
+pnpm test:run   # Run tests once
+pnpm typecheck  # Type-check all packages
 pnpm lint       # Lint with ESLint
 pnpm build      # Build all packages
 ```
+
+Tests use Vitest and cover flow, bridge, and sync packages. Add tests in `packages/<name>/src/*.test.ts`.
 
 ## Project Structure
 

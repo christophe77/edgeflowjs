@@ -1,11 +1,11 @@
-# @edgeflow/device-sim
+# @edgeflowjs/device-sim
 
 Simulator for development and tests. Implements `DeviceAdapter` with injectable events.
 
 ## Install
 
 ```bash
-pnpm add @edgeflow/device-sim
+pnpm add @edgeflowjs/device-sim
 ```
 
 ## Exports
@@ -17,7 +17,7 @@ pnpm add @edgeflow/device-sim
 ## Usage
 
 ```ts
-import { createSimDevice, simBusSubscribe } from "@edgeflow/device-sim";
+import { createSimDevice, simBusSubscribe } from "@edgeflowjs/device-sim";
 
 const device = createSimDevice();
 

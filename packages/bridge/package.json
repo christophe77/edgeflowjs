@@ -1,5 +1,5 @@
 {
-  "name": "@edgeflow/bridge",
+  "name": "@edgeflowjs/bridge",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",
@@ -9,6 +9,6 @@
     "./client": { "types": "./dist/client.d.ts", "import": "./dist/client.js" }
   },
   "scripts": { "build": "tsup", "typecheck": "tsc --noEmit", "dev": "tsup --watch" },
-  "dependencies": { "ws": "^8.18.0" },
-  "devDependencies": { "@types/ws": "^8.5.13", "@edgeflow/observability": "workspace:*", "tsup": "^8.3.0", "typescript": "^5.7.0" }
+  "dependencies": { "@edgeflowjs/observability": "workspace:*", "ws": "^8.18.0" },
+  "devDependencies": { "@types/ws": "^8.5.13", "tsup": "^8.3.0", "typescript": "^5.7.0" }
 }

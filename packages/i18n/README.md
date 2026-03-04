@@ -1,18 +1,18 @@
-# @edgeflow/i18n
+# @edgeflowjs/i18n
 
 Minimal internationalization for EdgeFlow kiosks. Supports multi-locale translation, param substitution, and React integration.
 
 ## Install
 
 ```bash
-pnpm add @edgeflow/i18n
+pnpm add @edgeflowjs/i18n
 ```
 
 ## Usage
 
 ```ts
-import { createI18n } from "@edgeflow/i18n";
-import { I18nProvider, useT } from "@edgeflow/i18n/react";
+import { createI18n } from "@edgeflowjs/i18n";
+import { I18nProvider, useT } from "@edgeflowjs/i18n/react";
 
 const i18n = createI18n({
   defaultLocale: "en",

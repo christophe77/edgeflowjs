@@ -1,5 +1,5 @@
 {
-  "name": "@edgeflow/ui-devtools",
+  "name": "@edgeflowjs/ui-devtools",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -20,8 +20,8 @@
     "react-dom": "^18.0.0"
   },
   "dependencies": {
-    "@edgeflow/bridge": "workspace:*",
-    "@edgeflow/flow": "workspace:*"
+    "@edgeflowjs/bridge": "workspace:*",
+    "@edgeflowjs/flow": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

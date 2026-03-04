@@ -1,6 +1,7 @@
-import { createServer } from "node:http";
+import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { WebSocketServer } from "ws";
-import type { Logger } from "@edgeflow/observability";
+import type { Logger, Metrics } from "@edgeflowjs/observability";
+import { toPrometheusText } from "@edgeflowjs/observability";
 import type { BridgeEvent, BridgeRequest, BridgeResponse } from "../protocol/index.js";
 
 export type BridgeServer = {
@@ -13,13 +14,24 @@ export type BridgeServer = {
 export function createBridgeServer(opts: {
   port: number;
   logger: Logger;
+  metrics?: Metrics;
   onRequest?: (req: BridgeRequest, respond: (res: BridgeResponse) => void) => void;
 }): BridgeServer {
-  const { port, logger } = opts;
+  const { port, logger, metrics } = opts;
   let requestHandler = opts.onRequest ?? null;
   let wss: WebSocketServer | null = null;
   let httpServer: ReturnType<typeof createServer> | null = null;
   const clients = new Set<{ send: (data: string) => void }>();
+
+  function handleHttp(req: IncomingMessage, res: ServerResponse) {
+    if (req.method === "GET" && req.url === "/metrics" && metrics) {
+      res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+      res.end(toPrometheusText(metrics));
+      return;
+    }
+    res.writeHead(404);
+    res.end();
+  }
 
   return {
     setRequestHandler(handler) {
@@ -27,7 +39,7 @@ export function createBridgeServer(opts: {
     },
     async start() {
       return new Promise((resolve, reject) => {
-        httpServer = createServer();
+        httpServer = createServer(handleHttp);
         httpServer.listen({ port, reuseAddr: true }, () => {
           wss = new WebSocketServer({ server: httpServer!, perMessageDeflate: false });
           wss.on("connection", (ws) => {

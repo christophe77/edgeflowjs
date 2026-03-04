@@ -1,5 +1,5 @@
 {
-  "name": "@edgeflow/device",
+  "name": "@edgeflowjs/device",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",

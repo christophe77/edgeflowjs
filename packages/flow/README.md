@@ -1,14 +1,14 @@
-# @edgeflow/flow
+# @edgeflowjs/flow
 
 State machine engine for deterministic kiosk flows.
 
 ## Install
 
 ```bash
-pnpm add @edgeflow/flow
+pnpm add @edgeflowjs/flow
 ```
 
-In a workspace: `"@edgeflow/flow": "workspace:*"`
+In a workspace: `"@edgeflowjs/flow": "workspace:*"`
 
 ## Exports
 
@@ -20,7 +20,7 @@ In a workspace: `"@edgeflow/flow": "workspace:*"`
 ## Usage
 
 ```ts
-import { defineFlow, createFlowEngine, createMemoryFlowStore } from "@edgeflow/flow";
+import { defineFlow, createFlowEngine, createMemoryFlowStore } from "@edgeflowjs/flow";
 
 const flow = createFlowEngine(createMemoryFlowStore());
 flow.register(defineFlow({

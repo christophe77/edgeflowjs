@@ -1,6 +1,6 @@
 # Device API
 
-Hardware abstraction layer for GPIO, Serial, Network, System, and Identity. Implementations are provided by adapters (e.g. `@edgeflow/device-sim` for development).
+Hardware abstraction layer for GPIO, Serial, Network, System, and Identity. Implementations are provided by adapters (e.g. `@edgeflowjs/device-sim` for development).
 
 ## Ports
 
@@ -76,10 +76,10 @@ type IdentityPort = {
 
 ## Device Simulator
 
-For development, use `@edgeflow/device-sim`:
+For development, use `@edgeflowjs/device-sim`:
 
 ```ts
-import { createSimDevice } from "@edgeflow/device-sim";
+import { createSimDevice } from "@edgeflowjs/device-sim";
 
 const device = createSimDevice();
 device.setNetworkOnline(true);

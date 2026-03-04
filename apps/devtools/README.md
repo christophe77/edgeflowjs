@@ -25,4 +25,4 @@ The core must be running (bridge server). The devtools app connects via `VITE_BR
 
 ## Components
 
-Uses `@edgeflow/ui-devtools` for FlowTimeline, OutboxInspector, CrashReports. Data is fetched via bridge requests (`flow.getSnapshot`, `sync.outbox.list`, `crash.list`) and real-time events (`flow.transition`, `sync.outbox.updated`).
+Uses `@edgeflowjs/ui-devtools` for FlowTimeline, OutboxInspector, CrashReports. Data is fetched via bridge requests (`flow.getSnapshot`, `sync.outbox.list`, `crash.list`) and real-time events (`flow.transition`, `sync.outbox.updated`).

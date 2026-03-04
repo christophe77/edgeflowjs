@@ -1,17 +1,17 @@
-# @edgeflow/bridge
+# @edgeflowjs/bridge
 
 WebSocket protocol connecting the React UI to the Node.js core.
 
 ## Install
 
 ```bash
-pnpm add @edgeflow/bridge
+pnpm add @edgeflowjs/bridge
 ```
 
 ## Server (Node.js)
 
 ```ts
-import { createBridgeServer } from "@edgeflow/bridge";
+import { createBridgeServer } from "@edgeflowjs/bridge";
 
 const bridge = createBridgeServer({ port: 19707, logger });
 await bridge.start();
@@ -23,7 +23,7 @@ bridge.publish({ id: "...", type: "flow.transition", ts: Date.now(), payload: { 
 Use the `/client` subpath to avoid pulling in Node dependencies:
 
 ```ts
-import { createBridgeClient } from "@edgeflow/bridge/client";
+import { createBridgeClient } from "@edgeflowjs/bridge/client";
 
 const bridge = createBridgeClient({ url: "ws://localhost:19707" });
 const data = await bridge.request({ id: crypto.randomUUID(), type: "flow.getSnapshot", ts: Date.now(), payload: { instanceId: "main" } });

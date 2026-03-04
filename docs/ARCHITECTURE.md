@@ -43,7 +43,7 @@ Define:
 - **Auth:** local token (file-based) + origin restrictions
 - **Message schema:** typed events + request/response
 
-**Outcome:** `@edgeflow/bridge` package.
+**Outcome:** `@edgeflowjs/bridge` package.
 
 ---
 
@@ -51,17 +51,17 @@ Define:
 
 ### 2.1 Packages (proposed)
 
-- `@edgeflow/core` — composition root, lifecycle, DI, configuration
-- `@edgeflow/bridge` — UI↔core API, event bus
-- `@edgeflow/flow` — state machines + persistence + replay
-- `@edgeflow/device` — ports + adapters + simulator
-- `@edgeflow/sync` — local store, outbox, replication
-- `@edgeflow/observability` — logs, metrics, traces, crash dumps
-- `@edgeflow/maintenance` — admin auth, panel API, audit log
-- `@edgeflow/ota` — update agent, package verification, rollback
-- `@edgeflow/cli` — scaffold, dev, build, deploy, doctor
-- `@edgeflow/ui-devtools` — flow visualizer, timeline, inspectors
-- `@edgeflow/ui-kit` — optional: kiosk-centric components
+- `@edgeflowjs/core` — composition root, lifecycle, DI, configuration
+- `@edgeflowjs/bridge` — UI↔core API, event bus
+- `@edgeflowjs/flow` — state machines + persistence + replay
+- `@edgeflowjs/device` — ports + adapters + simulator
+- `@edgeflowjs/sync` — local store, outbox, replication
+- `@edgeflowjs/observability` — logs, metrics, traces, crash dumps
+- `@edgeflowjs/maintenance` — admin auth, panel API, audit log
+- `@edgeflowjs/ota` — update agent, package verification, rollback
+- `@edgeflowjs/cli` — scaffold, dev, build, deploy, doctor
+- `@edgeflowjs/ui-devtools` — flow visualizer, timeline, inspectors
+- `@edgeflowjs/ui-kit` — optional: kiosk-centric components
 
 ### 2.2 Enforced Rules
 
@@ -86,7 +86,7 @@ Define:
 - **Schema validation:** zod
 - **Runtime config hot reload:** optional
 
-**Outcome:** `@edgeflow/core/config`.
+**Outcome:** `@edgeflowjs/core/config`.
 
 ### 3.2 Dependency Injection
 
@@ -132,8 +132,8 @@ Define:
 
 **Outcomes:**
 
-- `@edgeflow/flow` public API
-- `@edgeflow/ui-devtools` minimal viewer
+- `@edgeflowjs/flow` public API
+- `@edgeflowjs/ui-devtools` minimal viewer
 
 ### 4.4 Flow Example (Idle → Scan → Action → ThankYou)
 
@@ -198,7 +198,7 @@ Standardize event streams:
 - `device.serial.received`
 - `device.gpio.edge`
 
-**Outcome:** `@edgeflow/device` + `@edgeflow/device-sim`.
+**Outcome:** `@edgeflowjs/device` + `@edgeflowjs/device-sim`.
 
 ---
 
@@ -233,7 +233,7 @@ Provide hooks:
 - Last-write-wins default
 - Custom resolver per entity type
 
-**Outcome:** `@edgeflow/sync`.
+**Outcome:** `@edgeflowjs/sync`.
 
 ---
 
@@ -257,7 +257,7 @@ Provide hooks:
 - traceId propagated across flow + sync + device actions
 - Optional OpenTelemetry export
 
-**Outcome:** `@edgeflow/observability`.
+**Outcome:** `@edgeflowjs/observability`.
 
 ---
 
@@ -287,7 +287,7 @@ Every maintenance action writes:
 - Parameters
 - Outcome
 
-**Outcome:** `@edgeflow/maintenance` + minimal UI panel.
+**Outcome:** `@edgeflowjs/maintenance` + minimal UI panel.
 
 ---
 
@@ -307,7 +307,7 @@ Define an update artifact:
 - Healthcheck window
 - Automatic rollback
 
-**Outcome:** `@edgeflow/ota`.
+**Outcome:** `@edgeflowjs/ota`.
 
 ---
 
@@ -332,7 +332,7 @@ Define an update artifact:
 - Initial config bootstrap
 - Optional "pairing" with cloud
 
-**Outcome:** `@edgeflow/cli` deploy + `edgeflow doctor`.
+**Outcome:** `@edgeflowjs/cli` deploy + `edgeflow doctor`.
 
 ---
 

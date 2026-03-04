@@ -5,7 +5,7 @@ Offline-first outbox queue with SQLite persistence and retry. See [SYNC-DATA-MOD
 ## Install
 
 ```bash
-pnpm add @edgeflow/sync
+pnpm add @edgeflowjs/sync
 ```
 
 ## Exports
@@ -19,7 +19,7 @@ import {
   type SyncEngine,
   type OutboxEvent,
   type OutboxStatus,
-} from "@edgeflow/sync";
+} from "@edgeflowjs/sync";
 ```
 
 ## SyncStore

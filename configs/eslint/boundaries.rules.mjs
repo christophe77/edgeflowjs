@@ -1,13 +1,13 @@
 const appBoundaries = {
-  "apps/example-kiosk": ["@edgeflow/bridge", "@edgeflow/flow"],
+  "apps/example-kiosk": ["@edgeflowjs/bridge", "@edgeflowjs/flow"],
   "packages/core": ["*"],
-  "packages/bridge": ["@edgeflow/observability"],
+  "packages/bridge": ["@edgeflowjs/observability"],
   "packages/flow": [],
   "packages/device": [],
-  "packages/device-sim": ["@edgeflow/device"],
+  "packages/device-sim": ["@edgeflowjs/device"],
   "packages/sync": [],
   "packages/observability": [],
-  "packages/maintenance": ["@edgeflow/device", "@edgeflow/sync", "@edgeflow/ota", "@edgeflow/observability"],
+  "packages/maintenance": ["@edgeflowjs/device", "@edgeflowjs/sync", "@edgeflowjs/ota", "@edgeflowjs/observability"],
   "packages/ota": [],
 };
 
@@ -29,7 +29,7 @@ export default {
         return {
           ImportDeclaration(node) {
             const src = node.source?.value;
-            if (!src?.startsWith("@edgeflow/")) return;
+            if (!src?.startsWith("@edgeflowjs/")) return;
             if (!allowed.has(src)) {
               context.report({
                 node: node.source,

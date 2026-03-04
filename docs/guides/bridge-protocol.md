@@ -54,7 +54,7 @@ The server publishes events that clients can subscribe to:
 ## Client Usage (React)
 
 ```ts
-import { createBridgeClient } from "@edgeflow/bridge/client";
+import { createBridgeClient } from "@edgeflowjs/bridge/client";
 
 const url = import.meta.env.VITE_BRIDGE_URL ?? "ws://localhost:19707";
 const bridge = createBridgeClient({ url });

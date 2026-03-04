@@ -1,11 +1,11 @@
-# @edgeflow/ota
+# @edgeflowjs/ota
 
 OTA update service (stub). Manifest verification, status events.
 
 ## Install
 
 ```bash
-pnpm add @edgeflow/ota
+pnpm add @edgeflowjs/ota
 ```
 
 ## Exports
@@ -17,7 +17,7 @@ pnpm add @edgeflow/ota
 ## Usage
 
 ```ts
-import { createOtaService } from "@edgeflow/ota";
+import { createOtaService } from "@edgeflowjs/ota";
 
 const ota = createOtaService();
 ota.onStatus((s) => console.log(s.state));

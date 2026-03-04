@@ -1,4 +1,4 @@
-import type { DeviceAdapter, GpioPort, SerialPort, NetworkPort, NetworkStatus, SystemPort, IdentityPort } from "@edgeflow/device";
+import type { DeviceAdapter, GpioPort, SerialPort, NetworkPort, NetworkStatus, SystemPort, IdentityPort } from "@edgeflowjs/device";
 import { simBusEmit, simBusSubscribe } from "./simBus.js";
 
 const gpioState = new Map<number, boolean>();

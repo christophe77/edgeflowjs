@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS sync_state (
 
 ### 1.4 audit_log (V2)
 
-Audit of maintenance actions. May be implemented in `@edgeflow/maintenance`.
+Audit of maintenance actions. May be implemented in `@edgeflowjs/maintenance`.
 
 ```sql
 CREATE TABLE IF NOT EXISTS audit_log (

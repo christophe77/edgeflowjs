@@ -4,6 +4,6 @@ import { defineConfig } from "tsup";
 export default defineConfig({
   ...tsupBase,
   entry: ["src/index.ts", "src/run.ts"],
-  noExternal: [/@edgeflow\//],
+  noExternal: [/@edgeflowjs\//],
   external: ["better-sqlite3", "ws"],
 });

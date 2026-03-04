@@ -60,16 +60,16 @@ flowchart TB
 
 | Package | Role |
 |---------|------|
-| `@edgeflow/core` | Composition root, config, bootstrap |
-| `@edgeflow/bridge` | UI ↔ core protocol (WebSocket) |
-| `@edgeflow/flow` | State machines, persistence, timers |
-| `@edgeflow/device` | Ports (GPIO, Serial, Network, System, Identity) |
-| `@edgeflow/device-sim` | Simulator for development |
-| `@edgeflow/sync` | Outbox, SQLite store, retry |
-| `@edgeflow/maintenance` | Unlock, actions, audit |
-| `@edgeflow/ota` | Manifest, verify, apply |
-| `@edgeflow/observability` | Logger, metrics, trace |
-| `@edgeflow/cli` | dev, build, simulate, deploy, doctor |
+| `@edgeflowjs/core` | Composition root, config, bootstrap |
+| `@edgeflowjs/bridge` | UI ↔ core protocol (WebSocket) |
+| `@edgeflowjs/flow` | State machines, persistence, timers |
+| `@edgeflowjs/device` | Ports (GPIO, Serial, Network, System, Identity) |
+| `@edgeflowjs/device-sim` | Simulator for development |
+| `@edgeflowjs/sync` | Outbox, SQLite store, retry |
+| `@edgeflowjs/maintenance` | Unlock, actions, audit |
+| `@edgeflowjs/ota` | Manifest, verify, apply |
+| `@edgeflowjs/observability` | Logger, metrics, trace |
+| `@edgeflowjs/cli` | dev, build, simulate, deploy, doctor |
 
 ---
 

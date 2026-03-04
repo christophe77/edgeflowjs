@@ -1,5 +1,5 @@
 {
-  "name": "@edgeflow/observability",
+  "name": "@edgeflowjs/observability",
   "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.js",

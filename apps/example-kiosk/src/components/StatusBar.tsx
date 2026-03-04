@@ -1,4 +1,4 @@
-import { useT, useI18n } from "@edgeflow/i18n/react";
+import { useT, useI18n } from "@edgeflowjs/i18n/react";
 
 export default function StatusBar({
   connected,

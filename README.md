@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo_bg_transparent_text_white.png" alt="EdgeFlow" width="280">
+</p>
+
 # EdgeFlow
 
 A JavaScript-first framework for industrial kiosks and Raspberry Pi devices. It provides flow-driven state machines, offline-first sync, hardware abstraction, and maintenance workflows—all with a developer experience comparable to modern web frameworks.
@@ -54,18 +58,18 @@ Packages aligned with [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) §2.1:
 
 | Package | Status | Description |
 |---------|--------|-------------|
-| `@edgeflow/core` | OK | Bootstrap, executable server (`src/run.ts`), composes bridge, flow, device, sync, maintenance, OTA |
-| `@edgeflow/bridge` | OK | WebSocket server (Node) and client (browser), UI ↔ core protocol |
-| `@edgeflow/flow` | OK | State machine engine (register, start, dispatch, getSnapshot, onTransition) |
-| `@edgeflow/device` | OK | Port interfaces (GPIO, serial, network, system, identity) |
-| `@edgeflow/device-sim` | OK | Simulator (injectSerial, setGpio, setNetworkOnline) |
-| `@edgeflow/sync` | OK | SQLite outbox, retry, stats, `sync.outbox.updated` events |
-| `@edgeflow/observability` | OK | Logger (createLogger) |
-| `@edgeflow/maintenance` | OK | Unlock (token, TTL 10 min), runAction (device.testGpio, device.injectSerial, sync.retry, system.reboot, ota.check) |
-| `@edgeflow/ota` | OK | Stub (check, apply, status events) |
-| `@edgeflow/cli` | OK | dev, build, simulate, deploy, logs, update, doctor |
-| `@edgeflow/ui-devtools` | OK | Flow visualizer, timeline, OutboxInspector, CrashReports |
-| `@edgeflow/ui-kit` | Planned | Kiosk components (optional) |
+| `@edgeflowjs/core` | OK | Bootstrap, executable server (`src/run.ts`), composes bridge, flow, device, sync, maintenance, OTA |
+| `@edgeflowjs/bridge` | OK | WebSocket server (Node) and client (browser), UI ↔ core protocol |
+| `@edgeflowjs/flow` | OK | State machine engine (register, start, dispatch, getSnapshot, onTransition) |
+| `@edgeflowjs/device` | OK | Port interfaces (GPIO, serial, network, system, identity) |
+| `@edgeflowjs/device-sim` | OK | Simulator (injectSerial, setGpio, setNetworkOnline) |
+| `@edgeflowjs/sync` | OK | SQLite outbox, retry, stats, `sync.outbox.updated` events |
+| `@edgeflowjs/observability` | OK | Logger (createLogger) |
+| `@edgeflowjs/maintenance` | OK | Unlock (token, TTL 10 min), runAction (device.testGpio, device.injectSerial, sync.retry, system.reboot, ota.check) |
+| `@edgeflowjs/ota` | OK | Stub (check, apply, status events) |
+| `@edgeflowjs/cli` | OK | dev, build, simulate, deploy, logs, update, doctor |
+| `@edgeflowjs/ui-devtools` | OK | Flow visualizer, timeline, OutboxInspector, CrashReports |
+| `@edgeflowjs/ui-kit` | Planned | Kiosk components (optional) |
 | `apps/example-kiosk` | OK | Vite + React: Idle → Scan → Action → ThankYou + Maintenance |
 
 ## Documentation
@@ -89,4 +93,4 @@ MIT — see [LICENSE](LICENSE).
 
 - pnpm workspace, TypeScript, tsup (packages), Vite (app).
 - Bridge: WebSocket (`ws` on server, native `WebSocket` in browser).
-- Sync: SQLite via `better-sqlite3` (in-memory fallback if native binary unavailable).
+- Sync: SQLite via `better-sqlite3` (in-memory fallback if native binary unavailable). On Windows, SQLite may require `npm rebuild better-sqlite3` or use WSL. Set `SYNC_STORE=memory` in `.env` to force the in-memory store and skip SQLite.

@@ -199,14 +199,14 @@ edgeflow/
 
 Design notes (implicit in the tree):
 
-UI (apps/example-kiosk) consumes only @edgeflow/bridge + @edgeflow/flow types.
+UI (apps/example-kiosk) consumes only @edgeflowjs/bridge + @edgeflowjs/flow types.
 
 Core composes everything and exposes a local API via bridge.
 
 device-sim is mandatory for DX and tests.
 
 2) Public TypeScript interfaces (MVP)
-2.1 @edgeflow/core — app bootstrap + plugins
+2.1 @edgeflowjs/core — app bootstrap + plugins
 // packages/core/src/app/plugin.ts
 export type EdgeflowPlugin = {
   name: string;
@@ -216,13 +216,13 @@ export type EdgeflowPlugin = {
 
 export type EdgeflowContext = {
   config: Record<string, unknown>;
-  logger: import("@edgeflow/observability").Logger;
-  device: import("@edgeflow/device").DeviceApi;
-  flow: import("@edgeflow/flow").FlowEngine;
-  sync: import("@edgeflow/sync").SyncEngine;
-  maintenance: import("@edgeflow/maintenance").MaintenanceService;
-  ota: import("@edgeflow/ota").OtaService;
-  bridge: import("@edgeflow/bridge").BridgeServer;
+  logger: import("@edgeflowjs/observability").Logger;
+  device: import("@edgeflowjs/device").DeviceApi;
+  flow: import("@edgeflowjs/flow").FlowEngine;
+  sync: import("@edgeflowjs/sync").SyncEngine;
+  maintenance: import("@edgeflowjs/maintenance").MaintenanceService;
+  ota: import("@edgeflowjs/ota").OtaService;
+  bridge: import("@edgeflowjs/bridge").BridgeServer;
 };
 
 // packages/core/src/app/createEdgeflowApp.ts
@@ -230,8 +230,8 @@ export type EdgeflowAppOptions = {
   configPath?: string;
   plugins?: EdgeflowPlugin[];
   adapters: {
-    device: import("@edgeflow/device").DeviceAdapter;
-    syncStore: import("@edgeflow/sync").SyncStore;
+    device: import("@edgeflowjs/device").DeviceAdapter;
+    syncStore: import("@edgeflowjs/sync").SyncStore;
   };
 };
 
@@ -249,7 +249,7 @@ export function loadConfig(opts?: { configPath?: string }): Promise<EdgeflowConf
 export type EdgeflowConfig = { bridge?: { port?: number }; [key: string]: unknown };
 
 // packages/core/src/run.ts — standalone entry point (node packages/core/dist/run.js)
-2.2 @edgeflow/bridge — protocol UI ↔ core
+2.2 @edgeflowjs/bridge — protocol UI ↔ core
 // packages/bridge/src/protocol/envelope.ts
 export type Envelope<TType extends string, TPayload> = {
   id: string;               // uuid
@@ -297,12 +297,12 @@ export type BridgeClient = {
   subscribe(handler: (evt: BridgeEvent) => void): () => void;
 };
 
-export function createBridgeServer(opts: { port: number; logger: import("@edgeflow/observability").Logger }): BridgeServer;
+export function createBridgeServer(opts: { port: number; logger: import("@edgeflowjs/observability").Logger }): BridgeServer;
 export function createBridgeClient(opts: { url: string; token?: string }): BridgeClient;
 
 Recommended MVP transport: WebSocket (simple + event push). You can migrate to unix socket later without changing types.
 
-2.3 @edgeflow/flow — state machine + runtime + store
+2.3 @edgeflowjs/flow — state machine + runtime + store
 // packages/flow/src/api/types.ts
 export type FlowEvent<TType extends string = string, TPayload = unknown> = {
   type: TType;
@@ -360,7 +360,7 @@ export type FlowEngine = {
 
 MVP: snapshot persistence + simple timers (setTimeout) + rehydration at boot. V2: durable timers and full event log.
 
-2.4 @edgeflow/device — ports + adapter + API
+2.4 @edgeflowjs/device — ports + adapter + API
 // packages/device/src/ports/gpio.ts
 export type GpioDirection = "in" | "out";
 export type GpioEdge = "rising" | "falling" | "both";
@@ -420,7 +420,7 @@ export type DeviceEvent =
   | { type: "device.serial.received"; port: string; data: string }
   | { type: "device.gpio.edge"; pin: number; value: boolean };
 
-2.5 @edgeflow/sync — SQLite store + outbox + memory fallback
+2.5 @edgeflowjs/sync — SQLite store + outbox + memory fallback
 // packages/sync/src/api/types.ts
 export type OutboxStatus = "pending" | "sent" | "failed";
 
@@ -460,7 +460,7 @@ export type SyncEngine = {
 
 MVP : endpoint “sink” configurable (POST /events) + retry backoff.
 
-2.6 @edgeflow/observability — logger minimal + redaction
+2.6 @edgeflowjs/observability — logger minimal + redaction
 // packages/observability/src/api/logger.ts
 export type LogLevel = "debug" | "info" | "warn" | "error";
 
@@ -475,7 +475,7 @@ export type Logger = {
 
 export function createLogger(opts: { level: LogLevel; redactionKeys?: string[]; filePath?: string }): Logger;
 export function redactKeys(obj: unknown, keys: string[]): unknown;
-2.7 @edgeflow/maintenance — unlock + actions + audit
+2.7 @edgeflowjs/maintenance — unlock + actions + audit
 // packages/maintenance/src/api/auth.ts
 export type MaintenanceSession = {
   sessionId: string;
@@ -506,7 +506,7 @@ export function auditGetRecent(limit?: number): Promise<AuditEntry[]>;
 
 MVP actions : device.testGpio, device.injectSerial, sync.retry, system.reboot, ota.check.
 
-2.8 @edgeflow/ota — manifest + service
+2.8 @edgeflowjs/ota — manifest + service
 // packages/ota/src/api/manifest.ts
 export type OtaManifest = {
   version: string;
@@ -536,7 +536,7 @@ export type OtaService = {
 
 export function verifyManifest(manifest: OtaManifest, publicKey?: string): Promise<boolean>;
 
-2.9 @edgeflow/device-sim — simulator for DX and tests
+2.9 @edgeflowjs/device-sim — simulator for DX and tests
 // packages/device-sim/src/sim/createSimDevice.ts
 export type SimDevice = DeviceAdapter & {
   setNetworkOnline(online: boolean): void;
@@ -548,7 +548,7 @@ export type SimDevice = DeviceAdapter & {
 export function createSimDevice(): SimDevice;
 export function simBusSubscribe(handler: (evt: { type: string; payload?: unknown }) => void): () => void;
 
-2.10 @edgeflow/i18n — I18n, createI18n, React exports
+2.10 @edgeflowjs/i18n — I18n, createI18n, React exports
 // packages/i18n/src/index.ts
 export type Locale = string;
 export type Translations = Record<string, string | Record<string, string>>;

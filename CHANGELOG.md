@@ -25,4 +25,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Crash recovery:** uncaughtException/unhandledRejection handlers, crash_reports persistence
 - **Production build:** Vite optimizations (manualChunks, sourcemap: false)
 - **Phase 3:** Complete (flow visualizer, crash recovery, production build)
-- **Phase 4:** i18n layer (`@edgeflow/i18n`), multi-locale support
+- **Phase 4:** i18n layer (`@edgeflowjs/i18n`), multi-locale support

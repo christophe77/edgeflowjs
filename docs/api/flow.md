@@ -5,13 +5,13 @@ State machine engine for deterministic kiosk flows. See [guides/building-a-flow.
 ## Install
 
 ```bash
-pnpm add @edgeflow/flow
+pnpm add @edgeflowjs/flow
 ```
 
 In a monorepo workspace, add to `package.json`:
 
 ```json
-"dependencies": { "@edgeflow/flow": "workspace:*" }
+"dependencies": { "@edgeflowjs/flow": "workspace:*" }
 ```
 
 ## Exports
@@ -29,7 +29,7 @@ import {
   type FlowStateDef,
   type TransitionGuard,
   type TransitionAction,
-} from "@edgeflow/flow";
+} from "@edgeflowjs/flow";
 ```
 
 ## Main Types

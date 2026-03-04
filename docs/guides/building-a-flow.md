@@ -7,7 +7,7 @@ This guide explains how to define and run flows with EdgeFlow's state machine en
 Use `defineFlow()` to create a flow definition. It returns a `FlowDef` that you register with the engine.
 
 ```ts
-import { defineFlow } from "@edgeflow/flow";
+import { defineFlow } from "@edgeflowjs/flow";
 
 const purchaseFlow = defineFlow({
   id: "purchase",
@@ -45,7 +45,7 @@ const purchaseFlow = defineFlow({
 ## Register and Start
 
 ```ts
-import { createFlowEngine, createMemoryFlowStore } from "@edgeflow/flow";
+import { createFlowEngine, createMemoryFlowStore } from "@edgeflowjs/flow";
 
 const store = createMemoryFlowStore();
 const flow = createFlowEngine(store);

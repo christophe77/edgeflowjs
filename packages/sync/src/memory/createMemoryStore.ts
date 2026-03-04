@@ -1,8 +1,7 @@
 import type { OutboxEvent, SyncStore } from "../api/types.js";
 
-const outbox: OutboxEvent[] = [];
-
 export function createMemoryStore(): SyncStore {
+  const outbox: OutboxEvent[] = [];
   return {
     async outboxEnqueue(evt) {
       const row: OutboxEvent = {

@@ -1,4 +1,4 @@
-import type { DeviceEvent } from "@edgeflow/device";
+import type { DeviceEvent } from "@edgeflowjs/device";
 
 export type SimBusListener = (evt: DeviceEvent) => void;
 

@@ -1,11 +1,11 @@
-# @edgeflow/maintenance
+# @edgeflowjs/maintenance
 
 Maintenance mode: unlock, session validation, run actions, audit log.
 
 ## Install
 
 ```bash
-pnpm add @edgeflow/maintenance
+pnpm add @edgeflowjs/maintenance
 ```
 
 ## Exports
@@ -18,7 +18,7 @@ pnpm add @edgeflow/maintenance
 ## Usage
 
 ```ts
-import { createMaintenanceAuth, createMaintenanceService } from "@edgeflow/maintenance";
+import { createMaintenanceAuth, createMaintenanceService } from "@edgeflowjs/maintenance";
 
 const auth = createMaintenanceAuth({ ttlMs: 600_000 });
 const service = createMaintenanceService(auth, { device, sync, ota, runActionImpl });

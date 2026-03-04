@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useT } from "@edgeflow/i18n/react";
+import { useT } from "@edgeflowjs/i18n/react";
 import { bridgeClient } from "../bridge/bridgeClient";
 
 export default function Maintenance({ onBack }: { onBack: () => void }) {

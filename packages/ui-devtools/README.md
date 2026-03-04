@@ -1,11 +1,11 @@
-# @edgeflow/ui-devtools
+# @edgeflowjs/ui-devtools
 
 React components for the EdgeFlow debug dashboard: FlowTimeline, OutboxInspector, CrashReports.
 
 ## Install
 
 ```bash
-pnpm add @edgeflow/ui-devtools
+pnpm add @edgeflowjs/ui-devtools
 ```
 
 ## Exports
@@ -18,7 +18,7 @@ pnpm add @edgeflow/ui-devtools
 ## Usage
 
 ```tsx
-import { FlowTimeline, OutboxInspector, CrashReports } from "@edgeflow/ui-devtools";
+import { FlowTimeline, OutboxInspector, CrashReports } from "@edgeflowjs/ui-devtools";
 
 <FlowTimeline transitions={transitions} snapshot={snapshot} instanceId="purchase-1" />
 <OutboxInspector events={outbox} stats={stats} onRetry={handleRetry} />

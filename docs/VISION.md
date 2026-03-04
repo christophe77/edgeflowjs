@@ -115,7 +115,7 @@ EdgeFlow includes a built-in deterministic state machine system.
 **Example:**
 
 ```js
-import { defineFlow, createFlowEngine, createMemoryFlowStore } from "@edgeflow/flow";
+import { defineFlow, createFlowEngine, createMemoryFlowStore } from "@edgeflowjs/flow";
 
 const flow = createFlowEngine(createMemoryFlowStore());
 flow.register(defineFlow({

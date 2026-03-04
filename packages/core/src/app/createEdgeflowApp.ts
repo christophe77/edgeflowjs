@@ -1,10 +1,10 @@
-import type { Logger } from "@edgeflow/observability";
-import type { DeviceApi, DeviceAdapter } from "@edgeflow/device";
-import type { FlowEngine } from "@edgeflow/flow";
-import type { SyncEngine } from "@edgeflow/sync";
-import type { MaintenanceService } from "@edgeflow/maintenance";
-import type { OtaService } from "@edgeflow/ota";
-import type { BridgeServer } from "@edgeflow/bridge";
+import type { Logger } from "@edgeflowjs/observability";
+import type { DeviceApi, DeviceAdapter } from "@edgeflowjs/device";
+import type { FlowEngine } from "@edgeflowjs/flow";
+import type { SyncEngine } from "@edgeflowjs/sync";
+import type { MaintenanceService } from "@edgeflowjs/maintenance";
+import type { OtaService } from "@edgeflowjs/ota";
+import type { BridgeServer } from "@edgeflowjs/bridge";
 import type { EdgeflowPlugin } from "./plugin.js";
 
 export type EdgeflowContext = {
@@ -23,7 +23,7 @@ export type EdgeflowAppOptions = {
   plugins?: EdgeflowPlugin[];
   adapters: {
     device: DeviceAdapter;
-    syncStore: import("@edgeflow/sync").SyncStore;
+    syncStore: import("@edgeflowjs/sync").SyncStore;
   };
 };
 

@@ -1,4 +1,4 @@
-# @edgeflow/cli
+# @edgeflowjs/cli
 
 EdgeFlow CLI: dev, build, simulate, deploy, logs, update, doctor, kill-ports.
 
