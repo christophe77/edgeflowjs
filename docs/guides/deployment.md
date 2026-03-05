@@ -72,13 +72,57 @@ Ensure the core has write access to `packages/core/data/` for SQLite and crash r
 
 **SQLite on Windows:** If `better-sqlite3` fails to load, set `SYNC_STORE=memory` in `.env` to use the in-memory store. For SQLite, try `npm rebuild better-sqlite3` or run under WSL.
 
-## Raspberry Pi (High-Level)
+## Remote Deployment to Raspberry Pi
+
+From your developer machine, deploy to a Raspberry Pi over SSH:
+
+```bash
+# Build and deploy in one command
+edgeflow build
+edgeflow deploy --host 192.168.1.50 --user pi
+```
+
+This will:
+1. Build the application
+2. Create a deploy bundle (runtime + kiosk app)
+3. Copy files to `/opt/edgeflow/` on the target via SCP
+4. Install and start the systemd service
+
+**Options:**
+- `--host <ip>` — Target device IP or hostname (required for remote)
+- `--user <user>` — SSH user (default: `pi`)
+- `--platform <name>` — `raspberry-pi` (default) or `linux`
+- `--key <path>` — SSH key path
+
+**Prerequisites on the Pi:**
+- SSH access (password or key)
+- Node.js 18+ installed
+- `sudo` without password for the deploy user, or deploy as root
+
+## Runtime Layout on Device
+
+After deployment, the application is installed at:
+
+```
+/opt/edgeflow/
+  runtime/           # Core (run.js, node_modules)
+  apps/kiosk-app/    # Static kiosk UI
+  data/              # SQLite, crash reports (persistent)
+  logs/              # Log files
+  serve-kiosk.js     # Static server for kiosk
+  start.sh           # Runtime launcher
+  templates/         # systemd, kiosk scripts
+```
+
+The core runs via systemd. To serve the kiosk UI, run `node serve-kiosk.js 3000` (or install `edgeflow-kiosk-server.service`). Then launch Chromium in kiosk mode pointing to `http://localhost:3000`.
+
+## Raspberry Pi (Manual Setup)
 
 1. **Install Node 18+** and pnpm on Raspberry Pi OS.
-2. **Clone and build** the repo on the device or cross-compile.
+2. **Clone and build** the repo on the device or use remote deploy.
 3. **Run core** as a systemd service.
-4. **Serve kiosk** — either from the same device (e.g. Express serving static files) or from a separate server.
-5. **Chromium kiosk mode** — launch Chromium with flags to run fullscreen, hide cursor, disable screen blanking. Point it to the kiosk URL.
+4. **Serve kiosk** — use `serve-kiosk.js` from the deploy bundle or `npx serve`.
+5. **Chromium kiosk mode** — launch Chromium with flags to run fullscreen, hide cursor, disable screen blanking.
 
 ## Raspberry Pi Device Adapter
 
@@ -108,6 +152,22 @@ sudo systemctl start edgeflow
 edgeflow deploy kiosk -o kiosk.sh -u http://localhost:3000
 chmod +x kiosk.sh
 ./kiosk.sh
+```
+
+## CLI Utilities
+
+```bash
+# Restart the runtime (local or remote)
+edgeflow restart
+edgeflow restart --host 192.168.1.50
+
+# View logs
+edgeflow logs
+edgeflow logs --host 192.168.1.50
+
+# Check environment
+edgeflow doctor
+edgeflow doctor --host 192.168.1.50
 ```
 
 See [docs/ARCHITECTURE.md](../ARCHITECTURE.md) section 10 for OS integration notes.

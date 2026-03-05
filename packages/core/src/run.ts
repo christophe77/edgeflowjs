@@ -1,15 +1,17 @@
 /**
  * Runnable EdgeFlow core: starts logger, device sim, sync, flow, maintenance, OTA, bridge.
- * Loads a single .env from repo root (or cwd). Usage: pnpm dev (from root) or pnpm run dev (from packages/core)
+ * Loads .env from EDGEFLOW_ROOT, cwd, or repo root. DATA_DIR/EDGEFLOW_ROOT support /opt/edgeflow deployment.
  */
 import path from "node:path";
 import fs from "node:fs";
 import { config as loadEnv } from "dotenv";
 import { createLogger, createMetrics, createTraceId } from "@edgeflowjs/observability";
 
-const rootEnv = path.resolve(process.cwd(), "../../.env");
-const cwdEnv = path.resolve(process.cwd(), ".env");
-const envPath = [cwdEnv, rootEnv].find((p) => fs.existsSync(p));
+const edgeflowRoot = process.env.EDGEFLOW_ROOT;
+const envCandidates = edgeflowRoot
+  ? [path.join(edgeflowRoot, ".env")]
+  : [path.resolve(process.cwd(), ".env"), path.resolve(process.cwd(), "../../.env")];
+const envPath = envCandidates.find((p) => fs.existsSync(p));
 if (envPath) loadEnv({ path: envPath });
 import { createSimDevice, simBusSubscribe } from "@edgeflowjs/device-sim";
 import { detectPi, createRpiDevice } from "@edgeflowjs/device-rpi";
@@ -22,7 +24,9 @@ import { createOtaService } from "@edgeflowjs/ota";
 import { createBridgeServer } from "@edgeflowjs/bridge";
 import type { BridgeRequest, BridgeResponse } from "@edgeflowjs/bridge";
 
-const DATA_DIR = path.resolve(process.cwd(), "data");
+const DATA_DIR =
+  process.env.DATA_DIR ??
+  (edgeflowRoot ? path.join(edgeflowRoot, "data") : path.resolve(process.cwd(), "data"));
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 const DB_PATH = path.join(DATA_DIR, "edgeflow.sqlite");
 

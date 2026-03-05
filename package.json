@@ -5,6 +5,7 @@
   "scripts": {
     "i": "pnpm install",
     "build": "pnpm -r run build",
+    "build:deploy-bundle": "node scripts/build-deploy-bundle.mjs",
     "dev:core": "node packages/core/dist/run.js",
     "dev:app": "pnpm run --filter example-kiosk dev",
     "dev:devtools": "pnpm run --filter devtools dev",

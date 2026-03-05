@@ -1,11 +1,95 @@
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
+import { spawnSync } from "node:child_process";
+import { platform } from "node:os";
 import { Command } from "commander";
 import { getProjectRoot } from "../lib/config.js";
 import { detectPi } from "../lib/detectPi.js";
 
+function run(cmd: string, args: string[], opts?: { cwd?: string }): boolean {
+  const r = spawnSync(cmd, args, { stdio: "inherit", cwd: opts?.cwd });
+  return r.status === 0;
+}
+
+function sshExec(host: string, user: string, key: string | undefined, cmd: string): boolean {
+  const args = ["-o", "StrictHostKeyChecking=no"];
+  if (key) args.push("-i", key);
+  args.push(`${user}@${host}`, cmd);
+  return run("ssh", args);
+}
+
+function scpToHost(host: string, user: string, key: string | undefined, localPath: string, remotePath: string): boolean {
+  const args = ["-o", "StrictHostKeyChecking=no", "-r"];
+  if (key) args.push("-i", key);
+  args.push(localPath, `${user}@${host}:${remotePath}`);
+  return run("scp", args);
+}
+
 export function deployCommand(): Command {
-  const cmd = new Command("deploy").description("Deploy to device (systemd, kiosk)");
+  const cmd = new Command("deploy")
+    .description("Deploy to device (systemd, kiosk, or remote via --host)")
+    .option("-h, --host <ip>", "Deploy to remote host (IP or hostname)")
+    .option("-p, --platform <name>", "Target platform", "raspberry-pi")
+    .option("-u, --user <user>", "SSH user", "pi")
+    .option("-k, --key <path>", "SSH key path")
+    .action(async (opts) => {
+      const host = opts.host;
+      if (host) {
+        const root = getProjectRoot();
+        const bundleDir = join(root, "deploy-bundle");
+        console.log("Building...");
+        if (!run("pnpm", ["build"], { cwd: root })) {
+          console.error("Build failed");
+          process.exit(1);
+        }
+        console.log("Creating deploy bundle...");
+        if (!run("node", ["scripts/build-deploy-bundle.mjs"], { cwd: root })) {
+          console.error("Bundle failed");
+          process.exit(1);
+        }
+        if (!existsSync(bundleDir)) {
+          console.error("deploy-bundle not found");
+          process.exit(1);
+        }
+        const user = opts.user;
+        const key = opts.key;
+        console.log(`Deploying to ${user}@${host}...`);
+        if (!sshExec(host, user, key, "sudo mkdir -p /opt/edgeflow/data /opt/edgeflow/logs /tmp/edgeflow-deploy")) {
+          console.error("Failed to create remote directories");
+          process.exit(1);
+        }
+        if (!scpToHost(host, user, key, join(bundleDir, "runtime"), "/tmp/edgeflow-deploy/runtime")) {
+          process.exit(1);
+        }
+        if (!scpToHost(host, user, key, join(bundleDir, "apps"), "/tmp/edgeflow-deploy/apps")) {
+          process.exit(1);
+        }
+        if (!scpToHost(host, user, key, join(bundleDir, "serve-kiosk.js"), "/tmp/edgeflow-deploy/")) {
+          process.exit(1);
+        }
+        if (!scpToHost(host, user, key, join(bundleDir, "start.sh"), "/tmp/edgeflow-deploy/")) {
+          process.exit(1);
+        }
+        if (!scpToHost(host, user, key, join(bundleDir, "templates"), "/tmp/edgeflow-deploy/")) {
+          process.exit(1);
+        }
+        const serviceUser = opts.platform === "raspberry-pi" ? "pi" : "root";
+        const setup = `sudo cp -r /tmp/edgeflow-deploy/runtime /tmp/edgeflow-deploy/apps /tmp/edgeflow-deploy/templates /opt/edgeflow/ && \
+sudo cp /tmp/edgeflow-deploy/serve-kiosk.js /tmp/edgeflow-deploy/start.sh /opt/edgeflow/ && \
+sudo chmod +x /opt/edgeflow/start.sh && \
+sudo cp /opt/edgeflow/templates/systemd/edgeflow.service /etc/systemd/system/ && \
+sudo sed -i 's/User=pi/User=${serviceUser}/' /etc/systemd/system/edgeflow.service && \
+sudo systemctl daemon-reload && \
+(sudo systemctl is-active --quiet edgeflow && sudo systemctl restart edgeflow || sudo systemctl enable edgeflow && sudo systemctl start edgeflow)`;
+        if (!sshExec(host, user, key, setup)) {
+          console.error("Failed to install and start service");
+          process.exit(1);
+        }
+        console.log("Deployed. Core running at ws://" + host + ":19707");
+      } else {
+        console.log("Use: edgeflow deploy --host <ip> | edgeflow deploy systemd | edgeflow deploy kiosk");
+      }
+    });
 
   cmd
     .command("systemd")

@@ -13,7 +13,19 @@ export function logsCommand(): Command {
     .description("Tail EdgeFlow core logs (journalctl on Linux, log file on Windows)")
     .option("-n, --lines <n>", "Number of lines to show", "50")
     .option("-f, --follow", "Follow log output")
+    .option("-h, --host <ip>", "Tail logs on remote host via SSH")
+    .option("-u, --user <user>", "SSH user (when using --host)", "pi")
     .action((opts) => {
+      if (opts.host) {
+        const lines = String(parseInt(opts.lines, 10) || 50);
+        const follow = opts.follow ? " -f" : "";
+        const remoteCmd = `journalctl -u edgeflow -n ${lines}${follow}`;
+        const proc = spawn("ssh", ["-o", "StrictHostKeyChecking=no", `${opts.user}@${opts.host}`, remoteCmd], {
+          stdio: "inherit",
+        });
+        proc.on("exit", (c) => process.exit(c ?? 0));
+        return;
+      }
       const root = getProjectRoot();
       const lines = parseInt(opts.lines, 10) || 50;
 

@@ -1,15 +1,45 @@
 import { Command } from "commander";
-import { spawnSync } from "child_process";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import { spawnSync } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { platform } from "node:os";
+import { detectPi } from "../lib/detectPi.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+function checkPort19707(): string {
+  const isWin = platform() === "win32";
+  try {
+    if (isWin) {
+      const r = spawnSync("netstat", ["-ano"], { encoding: "utf-8" });
+      const inUse = r.stdout?.includes(":19707") ?? false;
+      return inUse ? "Port 19707: in use" : "Port 19707: free";
+    } else {
+      const r = spawnSync("lsof", ["-i", ":19707"], { encoding: "utf-8" });
+      return r.status === 0 ? "Port 19707: in use" : "Port 19707: free";
+    }
+  } catch {
+    return "Port 19707: (check skipped)";
+  }
+}
 
 export function doctorCommand(): Command {
   const cmd = new Command("doctor")
     .description("Validate environment (permissions, ports, config)")
-    .action(() => {
+    .option("-h, --host <ip>", "Run doctor on remote host via SSH")
+    .option("-u, --user <user>", "SSH user (when using --host)", "pi")
+    .action((opts) => {
+      const host = opts.host;
+      if (host) {
+        const cmd = `echo "=== Remote doctor ${host} ===" && (node --version 2>/dev/null || echo "Node: not found") && (status=$(systemctl is-active edgeflow 2>/dev/null) && echo "EdgeFlow service: $status" || echo "EdgeFlow service: not installed")`;
+        const r = spawnSync("ssh", ["-o", "StrictHostKeyChecking=no", `${opts.user}@${host}`, cmd], {
+          stdio: "inherit",
+        });
+        process.exit(r.status ?? 0);
+        return;
+      }
+
       const root = path.resolve(__dirname, "../../..");
       const checks: string[] = [];
 
@@ -34,9 +64,14 @@ export function doctorCommand(): Command {
         checks.push(".env: missing (optional, copy from .env.example)");
       }
 
+      if (detectPi()) {
+        checks.push("Device: Raspberry Pi detected");
+      }
+
+      checks.push(checkPort19707());
+
       console.log("EdgeFlow doctor\n");
       checks.forEach((c) => console.log(`  ${c}`));
-      console.log("\nFuture: Raspberry Pi detection, port 19707, permissions.");
     });
   return cmd;
 }
