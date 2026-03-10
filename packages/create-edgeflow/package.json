@@ -1,5 +1,5 @@
 {
-  "name": "create-edgeflow",
+  "name": "@edgeflowjs/create-edgeflow",
   "version": "0.2.0",
   "publishConfig": { "access": "public" },
   "type": "module",

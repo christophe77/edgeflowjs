@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **create-edgeflow:** Scaffold new kiosk projects with `npx create-edgeflow my-kiosk`
+- **create-edgeflow:** Scaffold new kiosk projects with `npx @edgeflowjs/create-edgeflow my-kiosk`
 - **CLI init:** `edgeflow init [name]` — alias for create-edgeflow
 - **Standalone workflow:** Create projects without cloning the monorepo; update via `pnpm update @edgeflowjs/*`
 - **Project detection:** CLI detects monorepo vs standalone; `getProjectRoot`, `getRuntimePath`, `getKioskDistPath`

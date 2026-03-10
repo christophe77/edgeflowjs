@@ -8,7 +8,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export function initCommand(): Command {
   return new Command("init")
-    .description("Create a new EdgeFlow kiosk project (alias for npx create-edgeflow)")
+    .description("Create a new EdgeFlow kiosk project (alias for npx @edgeflowjs/create-edgeflow)")
     .argument("[name]", "Project name or . for current directory")
     .action((name?: string) => {
       const args = name ? [name] : [];
@@ -24,7 +24,7 @@ export function initCommand(): Command {
           shell: process.platform === "win32",
         });
       } else {
-        result = spawnSync("npx", ["create-edgeflow", ...args], {
+        result = spawnSync("npx", ["@edgeflowjs/create-edgeflow", ...args], {
           stdio: "inherit",
           shell: process.platform === "win32",
         });

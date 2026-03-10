@@ -5,7 +5,7 @@ Scaffold a new EdgeFlow kiosk project without cloning the monorepo.
 ## Usage
 
 ```bash
-npx create-edgeflow my-kiosk
+npx @edgeflowjs/create-edgeflow my-kiosk
 cd my-kiosk
 pnpm install
 pnpm exec edgeflow dev
@@ -14,7 +14,7 @@ pnpm exec edgeflow dev
 Or create in the current directory:
 
 ```bash
-npx create-edgeflow .
+npx @edgeflowjs/create-edgeflow .
 ```
 
 ## What you get

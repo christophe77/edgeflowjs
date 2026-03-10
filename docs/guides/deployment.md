@@ -7,7 +7,7 @@ This guide covers building and deploying EdgeFlow for production.
 EdgeFlow supports two workflows:
 
 - **Monorepo:** Clone the repo, develop with all packages. Build outputs in `apps/example-kiosk/dist/`.
-- **Standalone:** Create with `npx create-edgeflow my-kiosk`. Build outputs in `dist/`. Update via `pnpm update @edgeflowjs/*`.
+- **Standalone:** Create with `npx @edgeflowjs/create-edgeflow my-kiosk`. Build outputs in `dist/`. Update via `pnpm update @edgeflowjs/*`.
 
 The CLI detects the project type and uses the correct paths for build and deploy.
 
@@ -175,7 +175,7 @@ chmod +x kiosk.sh
 ```bash
 # Create a new project (standalone)
 edgeflow init my-kiosk
-# or: npx create-edgeflow my-kiosk
+# or: npx @edgeflowjs/create-edgeflow my-kiosk
 
 # Restart the runtime (local or remote)
 edgeflow restart

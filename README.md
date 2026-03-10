@@ -18,7 +18,7 @@ See [docs/VISION.md](docs/VISION.md) for the full vision and roadmap.
 ### Option A: Create a new project (standalone)
 
 ```bash
-npx create-edgeflow my-kiosk
+npx @edgeflowjs/create-edgeflow my-kiosk
 cd my-kiosk
 pnpm install
 pnpm exec edgeflow dev
@@ -88,7 +88,7 @@ Packages aligned with [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) §2.1:
 | `@edgeflowjs/maintenance` | OK | Unlock (token, TTL 10 min), runAction (device.testGpio, device.injectSerial, sync.retry, system.reboot, ota.check) |
 | `@edgeflowjs/ota` | OK | Stub (check, apply, status events) |
 | `@edgeflowjs/cli` | OK | init, dev, build, simulate, deploy, logs, restart, update, doctor |
-| `create-edgeflow` | OK | Scaffold new kiosk project (npx create-edgeflow) |
+| `create-edgeflow` | OK | Scaffold new kiosk project (npx @edgeflowjs/create-edgeflow) |
 | `@edgeflowjs/ui-devtools` | OK | Flow visualizer, timeline, OutboxInspector, CrashReports |
 | `@edgeflowjs/ui-kit` | Planned | Kiosk components (optional) |
 | `apps/example-kiosk` | OK | Vite + React: Idle → Scan → Action → ThankYou + Maintenance |

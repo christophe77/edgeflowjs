@@ -12,7 +12,7 @@ This guide walks you through setting up EdgeFlow and running your first flow.
 Create a new kiosk project without cloning the monorepo:
 
 ```bash
-npx create-edgeflow my-kiosk
+npx @edgeflowjs/create-edgeflow my-kiosk
 cd my-kiosk
 pnpm install
 pnpm exec edgeflow dev

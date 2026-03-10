@@ -314,7 +314,7 @@ Built-in telemetry system.
 EdgeFlow includes a dedicated CLI.
 
 ```bash
-npx create-edgeflow my-kiosk    # Create new project (standalone)
+npx @edgeflowjs/create-edgeflow my-kiosk    # Create new project (standalone)
 edgeflow init [name]            # Alias for create-edgeflow
 edgeflow dev
 edgeflow build
@@ -427,7 +427,7 @@ simulate.serial.inject("QR:123456")
 
 **Phase 5:** ✓ Complete
 
-- create-edgeflow (npx create-edgeflow)
+- create-edgeflow (npx @edgeflowjs/create-edgeflow)
 - edgeflow init
 - Standalone workflow (no monorepo clone)
 - Remote deploy (--host) for monorepo and standalone

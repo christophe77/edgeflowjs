@@ -14,12 +14,12 @@ const TEMPLATE_DIR = join(PKG_ROOT, "template");
 function main() {
   const arg = process.argv[2];
   if (!arg) {
-    console.log("Usage: npx create-edgeflow <project-name>");
-    console.log("   or: npx create-edgeflow .");
+    console.log("Usage: npx @edgeflowjs/create-edgeflow <project-name>");
+    console.log("   or: npx @edgeflowjs/create-edgeflow .");
     console.log("");
     console.log("Examples:");
-    console.log("  npx create-edgeflow my-kiosk");
-    console.log("  npx create-edgeflow .");
+    console.log("  npx @edgeflowjs/create-edgeflow my-kiosk");
+    console.log("  npx @edgeflowjs/create-edgeflow .");
     process.exit(1);
   }
 

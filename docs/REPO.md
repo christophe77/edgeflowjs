@@ -578,7 +578,7 @@ export function simBusSubscribe(handler: (evt: { type: string; payload?: unknown
 
 2.11 create-edgeflow — scaffold new kiosk project
 // packages/create-edgeflow/src/index.ts
-// Usage: npx create-edgeflow <project-name> or npx create-edgeflow .
+// Usage: npx @edgeflowjs/create-edgeflow <project-name> or npx @edgeflowjs/create-edgeflow .
 // Copies template from packages/create-edgeflow/template/, runs pnpm install
 // Template uses @edgeflowjs/core, @edgeflowjs/bridge, @edgeflowjs/flow, @edgeflowjs/i18n from npm
 
