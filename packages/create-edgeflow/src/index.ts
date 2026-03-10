@@ -47,14 +47,16 @@ function main() {
     writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
   }
 
-  const hasPnpm = spawnSync("pnpm", ["--version"], { stdio: "pipe" }).status === 0;
+  // Use shell so pnpm is found when run via npx (PATH may differ)
+  const hasPnpm = spawnSync("pnpm", ["--version"], { stdio: "pipe", shell: true }).status === 0;
   const installCmd = hasPnpm ? "pnpm" : "npm";
   const installArgs = hasPnpm ? ["install"] : ["install"];
 
   console.log(`Running ${installCmd} install...`);
-  const install = spawnSync(installCmd, installArgs, { cwd: targetDir, stdio: "inherit" });
+  const install = spawnSync(installCmd, installArgs, { cwd: targetDir, stdio: "inherit", shell: true });
   if (install.status !== 0) {
     console.error("Install failed.");
+    console.error(`Try running manually: ${arg !== "." ? `cd ${arg} && ` : ""}${installCmd} install`);
     process.exit(1);
   }
 
