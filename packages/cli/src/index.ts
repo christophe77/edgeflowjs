@@ -17,7 +17,7 @@ const program = new Command();
 program
   .name("edgeflow")
   .description("EdgeFlow CLI — build, deploy, and maintain industrial kiosks")
-  .version("0.2.1");
+  .version("0.2.2");
 
 program.addCommand(devCommand());
 program.addCommand(buildCommand());
