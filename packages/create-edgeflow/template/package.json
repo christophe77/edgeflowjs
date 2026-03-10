@@ -1,0 +1,30 @@
+{
+  "name": "my-kiosk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"node node_modules/@edgeflowjs/core/dist/run.js\" \"vite\"",
+    "dev:app": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@edgeflowjs/bridge": "^0.2.0",
+    "@edgeflowjs/core": "^0.2.0",
+    "@edgeflowjs/flow": "^0.2.0",
+    "@edgeflowjs/i18n": "^0.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@edgeflowjs/cli": "^0.2.0",
+    "concurrently": "^9.1.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.1"
+  }
+}

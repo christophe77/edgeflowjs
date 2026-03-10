@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2025-02-27
+
+### Added
+
+- **create-edgeflow:** Scaffold new kiosk projects with `npx create-edgeflow my-kiosk`
+- **CLI init:** `edgeflow init [name]` — alias for create-edgeflow
+- **Standalone workflow:** Create projects without cloning the monorepo; update via `pnpm update @edgeflowjs/*`
+- **Project detection:** CLI detects monorepo vs standalone; `getProjectRoot`, `getRuntimePath`, `getKioskDistPath`
+- **Embedded deploy bundle:** Bundle logic in CLI; works for both monorepo and standalone
+- **CLI restart:** `edgeflow restart` (local) and `edgeflow restart --host <ip>` (remote)
+- **Doctor enhancements:** Pi detection, port 19707 check, `--host` for remote checks
+- **Logs --host:** `edgeflow logs --host <ip>` for remote journalctl
+
+### Changed
+
+- **Deploy:** Uses embedded createBundle instead of external script; supports standalone projects
+- **Build/Dev:** Use `getProjectRoot()`; support pnpm or npm
+
+---
+
 ## [0.1.0] - 2025-02-27
 
 ### Added

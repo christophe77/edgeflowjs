@@ -5,9 +5,27 @@ This guide walks you through setting up EdgeFlow and running your first flow.
 ## Prerequisites
 
 - **Node.js** >= 18
-- **pnpm** — install with `npm install -g pnpm`
+- **pnpm** — install with `npm install -g pnpm` (or use npm)
 
-## Install
+## Option A: Create a new project (standalone)
+
+Create a new kiosk project without cloning the monorepo:
+
+```bash
+npx create-edgeflow my-kiosk
+cd my-kiosk
+pnpm install
+pnpm exec edgeflow dev
+```
+
+This scaffolds a complete kiosk app with flow, i18n, and maintenance. Deploy to Raspberry Pi with:
+
+```bash
+pnpm exec edgeflow build
+pnpm exec edgeflow deploy --host <raspberry-ip>
+```
+
+## Option B: Clone and develop (monorepo)
 
 ```bash
 git clone https://github.com/christophe77/edgeflow.git
@@ -21,7 +39,7 @@ pnpm install
 pnpm build
 ```
 
-This builds all packages in the monorepo (flow, bridge, sync, device, core, etc.).
+This builds all packages in the monorepo (flow, bridge, sync, device, core, etc.). For standalone projects, it builds the kiosk app only.
 
 ## Configuration
 

@@ -136,15 +136,41 @@ edgeflow/
       src/
         index.ts
         commands/
+          init.ts
           dev.ts
           build.ts
           simulate.ts
           deploy.ts
           logs.ts
+          restart.ts
+          update.ts
           doctor.ts
+          killPorts.ts
+        deploy/
+          createBundle.ts
         lib/
-          exec.ts
-          detect.ts
+          config.ts
+          detectPi.ts
+
+    create-edgeflow/
+      package.json
+      tsconfig.json
+      src/
+        index.ts
+      template/
+        package.json
+        vite.config.ts
+        tsconfig.json
+        index.html
+        src/
+          main.tsx
+          App.tsx
+          index.css
+          bridge/
+          components/
+          screens/
+          locales/
+          hooks/
 
     ui-devtools/
       package.json
@@ -549,6 +575,16 @@ export function createSimDevice(): SimDevice;
 export function simBusSubscribe(handler: (evt: { type: string; payload?: unknown }) => void): () => void;
 
 2.10 @edgeflowjs/i18n — I18n, createI18n, React exports
+
+2.11 create-edgeflow — scaffold new kiosk project
+// packages/create-edgeflow/src/index.ts
+// Usage: npx create-edgeflow <project-name> or npx create-edgeflow .
+// Copies template from packages/create-edgeflow/template/, runs pnpm install
+// Template uses @edgeflowjs/core, @edgeflowjs/bridge, @edgeflowjs/flow, @edgeflowjs/i18n from npm
+
+2.12 @edgeflowjs/cli — init, dev, build, deploy, logs, restart, doctor
+// edgeflow init [name] — runs create-edgeflow
+// edgeflow deploy --host <ip> — works for monorepo and standalone (detects via getProjectRoot, getRuntimePath, getKioskDistPath)
 // packages/i18n/src/index.ts
 export type Locale = string;
 export type Translations = Record<string, string | Record<string, string>>;

@@ -39,3 +39,6 @@ data/
 
 # Optional
 *.local
+
+# Scaffolded test projects
+test-init-kiosk/

@@ -15,7 +15,27 @@ See [docs/VISION.md](docs/VISION.md) for the full vision and roadmap.
 
 ## Quick start
 
+### Option A: Create a new project (standalone)
+
 ```bash
+npx create-edgeflow my-kiosk
+cd my-kiosk
+pnpm install
+pnpm exec edgeflow dev
+```
+
+Deploy to Raspberry Pi:
+
+```bash
+pnpm exec edgeflow build
+pnpm exec edgeflow deploy --host <raspberry-ip>
+```
+
+### Option B: Clone and develop (monorepo)
+
+```bash
+git clone <repo>
+cd EdgeFlow
 pnpm install
 cp .env.example .env   # optional if defaults are fine
 pnpm build
@@ -50,7 +70,7 @@ Use the UI: **Start** → **Simulate QR** → **Complete**. Then open **Maintena
 | `pnpm lint`    | Lint (ESLint)                  |
 | `pnpm typecheck` | Type-check all packages     |
 
-**CLI:** `pnpm run cli -- <cmd>` or `pnpm exec edgeflow <cmd>` after build. Commands: `dev`, `build`, `simulate`, `deploy`, `logs`, `update`, `doctor`.
+**CLI:** `pnpm run cli -- <cmd>` or `pnpm exec edgeflow <cmd>` after build. Commands: `init`, `dev`, `build`, `simulate`, `deploy`, `logs`, `restart`, `update`, `doctor`.
 
 ## Structure
 
@@ -67,7 +87,8 @@ Packages aligned with [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) §2.1:
 | `@edgeflowjs/observability` | OK | Logger (createLogger) |
 | `@edgeflowjs/maintenance` | OK | Unlock (token, TTL 10 min), runAction (device.testGpio, device.injectSerial, sync.retry, system.reboot, ota.check) |
 | `@edgeflowjs/ota` | OK | Stub (check, apply, status events) |
-| `@edgeflowjs/cli` | OK | dev, build, simulate, deploy, logs, update, doctor |
+| `@edgeflowjs/cli` | OK | init, dev, build, simulate, deploy, logs, restart, update, doctor |
+| `create-edgeflow` | OK | Scaffold new kiosk project (npx create-edgeflow) |
 | `@edgeflowjs/ui-devtools` | OK | Flow visualizer, timeline, OutboxInspector, CrashReports |
 | `@edgeflowjs/ui-kit` | Planned | Kiosk components (optional) |
 | `apps/example-kiosk` | OK | Vite + React: Idle → Scan → Action → ThankYou + Maintenance |

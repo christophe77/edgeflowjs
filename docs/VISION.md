@@ -314,14 +314,16 @@ Built-in telemetry system.
 EdgeFlow includes a dedicated CLI.
 
 ```bash
-npx create-edgeflow-app
+npx create-edgeflow my-kiosk    # Create new project (standalone)
+edgeflow init [name]            # Alias for create-edgeflow
 edgeflow dev
 edgeflow build
 edgeflow simulate
-edgeflow deploy
-edgeflow logs
+edgeflow deploy --host <ip>
+edgeflow logs [--host <ip>]
+edgeflow restart [--host <ip>]
 edgeflow update
-edgeflow doctor
+edgeflow doctor [--host <ip>]
 ```
 
 **CLI features:**
@@ -418,10 +420,17 @@ simulate.serial.inject("QR:123456")
 - Crash recovery
 - Production build mode
 
-**Phase 4:**
+**Phase 4:** ✓ Complete
 
 - i18n layer
 - Multi-locale support
+
+**Phase 5:** ✓ Complete
+
+- create-edgeflow (npx create-edgeflow)
+- edgeflow init
+- Standalone workflow (no monorepo clone)
+- Remote deploy (--host) for monorepo and standalone
 
 ---
 

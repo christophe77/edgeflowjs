@@ -1,13 +1,17 @@
 import { writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { spawnSync } from "node:child_process";
-import { platform } from "node:os";
 import { Command } from "commander";
-import { getProjectRoot } from "../lib/config.js";
+import { getProjectRoot, isMonorepo, getRuntimePath, getKioskDistPath } from "../lib/config.js";
 import { detectPi } from "../lib/detectPi.js";
+import { createBundle } from "../deploy/createBundle.js";
 
 function run(cmd: string, args: string[], opts?: { cwd?: string }): boolean {
-  const r = spawnSync(cmd, args, { stdio: "inherit", cwd: opts?.cwd });
+  const r = spawnSync(cmd, args, {
+    stdio: "inherit",
+    cwd: opts?.cwd,
+    shell: process.platform === "win32",
+  });
   return r.status === 0;
 }
 
@@ -37,16 +41,27 @@ export function deployCommand(): Command {
       if (host) {
         const root = getProjectRoot();
         const bundleDir = join(root, "deploy-bundle");
+
+        const hasPnpm = spawnSync("pnpm", ["--version"], { stdio: "pipe", shell: process.platform === "win32" }).status === 0;
+        const buildCmd = hasPnpm ? "pnpm" : "npm";
+        const buildArgs = hasPnpm ? ["run", "build"] : ["run", "build"];
+
         console.log("Building...");
-        if (!run("pnpm", ["build"], { cwd: root })) {
+        if (!run(buildCmd, buildArgs, { cwd: root })) {
           console.error("Build failed");
           process.exit(1);
         }
+
         console.log("Creating deploy bundle...");
-        if (!run("node", ["scripts/build-deploy-bundle.mjs"], { cwd: root })) {
-          console.error("Bundle failed");
+        try {
+          const runtimePath = getRuntimePath(root);
+          const kioskDistPath = getKioskDistPath(root);
+          createBundle({ root, runtimePath, kioskDistPath, outDir: bundleDir });
+        } catch (e) {
+          console.error(e instanceof Error ? e.message : String(e));
           process.exit(1);
         }
+
         if (!existsSync(bundleDir)) {
           console.error("deploy-bundle not found");
           process.exit(1);
@@ -100,19 +115,22 @@ sudo systemctl daemon-reload && \
         console.warn("Warning: Not running on Raspberry Pi. Unit file may need path adjustments.");
       }
       const root = getProjectRoot();
-      const corePath = join(root, "packages", "core", "dist", "run.js");
-      const dataDir = join(root, "packages", "core", "data");
+      const runtimePath = getRuntimePath(root);
+      const runJs = join(runtimePath, "run.js");
+      const workingDir = isMonorepo(root) ? join(root, "packages", "core") : root;
+      const dataDir = join(root, "data");
       const unit = `[Unit]
 Description=EdgeFlow Core
 After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=${join(root, "packages", "core")}
-ExecStart=/usr/bin/node ${corePath}
+WorkingDirectory=${workingDir}
+ExecStart=/usr/bin/node ${runJs}
 Restart=always
 RestartSec=5
 Environment=NODE_ENV=production
+Environment=EDGEFLOW_ROOT=${root}
 Environment=DATA_DIR=${dataDir}
 
 [Install]

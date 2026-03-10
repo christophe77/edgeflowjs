@@ -2,7 +2,7 @@ import boundaries from "./boundaries.rules.mjs";
 
 export default [
   {
-    ignores: ["**/dist/**", "**/node_modules/**", "**/.vite/**"],
+    ignores: ["**/dist/**", "**/node_modules/**", "**/.vite/**", "**/deploy-bundle/**"],
   },
   {
     files: ["**/*.ts", "**/*.tsx"],

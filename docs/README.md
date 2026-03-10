@@ -6,7 +6,7 @@ Documentation index for the EdgeFlow framework.
 
 | Document | Description |
 |----------|-------------|
-| [Getting Started](guides/getting-started.md) | Prerequisites, install, first run, troubleshooting |
+| [Getting Started](guides/getting-started.md) | Prerequisites, create-edgeflow (standalone) or clone (monorepo), first run, troubleshooting |
 
 ## Guides
 
@@ -14,7 +14,7 @@ Documentation index for the EdgeFlow framework.
 |----------|-------------|
 | [Building a Flow](guides/building-a-flow.md) | Define flows with `defineFlow()`, register, dispatch, timeouts |
 | [Bridge Protocol](guides/bridge-protocol.md) | UI ↔ core communication, WebSocket, requests, events |
-| [Deployment](guides/deployment.md) | Production build, .env.production, Raspberry Pi |
+| [Deployment](guides/deployment.md) | Production build, .env.production, Raspberry Pi, remote deploy, standalone |
 | [i18n](guides/i18n.md) | Multi-language kiosks, locale management, React integration |
 
 ## API Reference

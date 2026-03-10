@@ -2,16 +2,25 @@
 
 This guide covers building and deploying EdgeFlow for production.
 
+## Project types
+
+EdgeFlow supports two workflows:
+
+- **Monorepo:** Clone the repo, develop with all packages. Build outputs in `apps/example-kiosk/dist/`.
+- **Standalone:** Create with `npx create-edgeflow my-kiosk`. Build outputs in `dist/`. Update via `pnpm update @edgeflowjs/*`.
+
+The CLI detects the project type and uses the correct paths for build and deploy.
+
 ## Production Build
 
 ```bash
 pnpm build
+# or: edgeflow build
 ```
 
 This builds:
-- All packages (flow, bridge, sync, etc.)
-- `apps/example-kiosk` — output in `apps/example-kiosk/dist/`
-- `apps/devtools` — output in `apps/devtools/dist/`
+- **Monorepo:** All packages (flow, bridge, sync, etc.), `apps/example-kiosk`, `apps/devtools`
+- **Standalone:** The kiosk app only (output in `dist/`)
 
 ## Environment Variables
 
@@ -74,12 +83,19 @@ Ensure the core has write access to `packages/core/data/` for SQLite and crash r
 
 ## Remote Deployment to Raspberry Pi
 
-From your developer machine, deploy to a Raspberry Pi over SSH:
+From your developer machine, deploy to a Raspberry Pi over SSH. Works for both monorepo and standalone projects:
 
 ```bash
 # Build and deploy in one command
 edgeflow build
 edgeflow deploy --host 192.168.1.50 --user pi
+```
+
+Or with pnpm exec (standalone):
+
+```bash
+pnpm exec edgeflow build
+pnpm exec edgeflow deploy --host 192.168.1.50 --user pi
 ```
 
 This will:
@@ -157,13 +173,17 @@ chmod +x kiosk.sh
 ## CLI Utilities
 
 ```bash
+# Create a new project (standalone)
+edgeflow init my-kiosk
+# or: npx create-edgeflow my-kiosk
+
 # Restart the runtime (local or remote)
 edgeflow restart
 edgeflow restart --host 192.168.1.50
 
 # View logs
 edgeflow logs
-edgeflow logs --host 192.168.1.50
+edgeflow logs --host 192.168.1.50 --user pi
 
 # Check environment
 edgeflow doctor

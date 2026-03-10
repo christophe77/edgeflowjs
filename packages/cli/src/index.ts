@@ -3,6 +3,7 @@
 import { Command } from "commander";
 import { devCommand } from "./commands/dev.js";
 import { buildCommand } from "./commands/build.js";
+import { initCommand } from "./commands/init.js";
 import { simulateCommand } from "./commands/simulate.js";
 import { deployCommand } from "./commands/deploy.js";
 import { logsCommand } from "./commands/logs.js";
@@ -16,10 +17,11 @@ const program = new Command();
 program
   .name("edgeflow")
   .description("EdgeFlow CLI — build, deploy, and maintain industrial kiosks")
-  .version("0.1.0");
+  .version("0.2.0");
 
 program.addCommand(devCommand());
 program.addCommand(buildCommand());
+program.addCommand(initCommand());
 program.addCommand(simulateCommand());
 program.addCommand(deployCommand());
 program.addCommand(logsCommand());

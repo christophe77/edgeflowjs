@@ -1,0 +1,336 @@
+/* --- Variables --- */
+:root {
+  --color-bg: #0f0f1a;
+  --color-bg-elevated: #1a1a2e;
+  --color-bg-card: #16213e;
+  --color-border: #2a2a4a;
+  --color-text: #e8e8f0;
+  --color-text-muted: #8888a0;
+  --color-accent: #4361ee;
+  --color-accent-hover: #5a75f5;
+  --color-success: #6ee7b7;
+  --color-error: #f87171;
+  --color-warning: #fbbf24;
+  --header-height: 56px;
+  --status-height: 40px;
+  --radius: 8px;
+  --radius-sm: 6px;
+}
+
+/* --- Reset & Base --- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* --- App Shell --- */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Header --- */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  z-index: 100;
+  background: var(--color-bg-elevated);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header__logo {
+  height: 32px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+}
+
+.header__datetime {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+}
+
+.header__date {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: capitalize;
+}
+
+.header__time {
+  font-size: 1rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* --- Weather Widget --- */
+.weather-widget {
+  position: fixed;
+  top: calc(var(--header-height) + 1rem);
+  right: 1.25rem;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.weather-widget__temp {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.weather-widget__icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* --- Main Content --- */
+.app__main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--header-height) + 2rem) 1.5rem calc(var(--status-height) + 2rem);
+  min-height: 100vh;
+}
+
+.app__main--full {
+  padding-top: calc(var(--header-height) + 1.5rem);
+}
+
+/* --- Status Bar --- */
+.status-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--status-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  z-index: 100;
+  background: var(--color-bg-elevated);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.status-bar__left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-bar__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-bar__dot.connected {
+  background: var(--color-success);
+  box-shadow: 0 0 8px var(--color-success);
+}
+
+.status-bar__dot.disconnected {
+  background: var(--color-error);
+  box-shadow: 0 0 8px var(--color-error);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.status-bar__label {
+  color: var(--color-text-muted);
+}
+
+.status-bar__center {
+  flex: 1;
+}
+
+.status-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status-bar__locale {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.status-bar__locale-btn {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.status-bar__locale-btn:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
+
+.status-bar__locale-btn.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: white;
+}
+
+.status-bar__maintenance {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.status-bar__maintenance:hover {
+  color: var(--color-warning);
+  border-color: var(--color-warning);
+}
+
+/* --- Screen Content --- */
+.screen {
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+}
+
+.screen h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.screen p {
+  margin: 0 0 1.25rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.screen button {
+  padding: 0.85rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--color-accent);
+  color: white;
+  cursor: pointer;
+  margin: 0.35rem;
+  transition: background 0.15s;
+}
+
+.screen button:hover {
+  background: var(--color-accent-hover);
+}
+
+.screen button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.screen input {
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-card);
+  color: var(--color-text);
+  margin-right: 0.5rem;
+  width: 200px;
+}
+
+.screen input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.status {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: 1rem !important;
+}
+
+.screen__field {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.screen--maintenance .screen__field input {
+  flex: 1;
+  min-width: 180px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  .weather-widget {
+    top: calc(var(--header-height) + 0.5rem);
+    right: 0.75rem;
+    padding: 0.35rem 0.5rem;
+  }
+
+  .weather-widget__temp {
+    font-size: 1rem;
+  }
+
+  .weather-widget__icon {
+    font-size: 1.2rem;
+  }
+
+  .status-bar {
+    flex-wrap: wrap;
+    padding: 0.5rem 1rem;
+    height: auto;
+    min-height: var(--status-height);
+  }
+
+  .status-bar__right {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 0.25rem;
+  }
+}
